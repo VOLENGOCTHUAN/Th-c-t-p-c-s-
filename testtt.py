@@ -36,6 +36,18 @@ class IPv4Address(IPAddress):
             return "Unspecified Address: Chủ yếu sử dụng làm địa chỉ nguồn khi thiết bị khởi động và chưa có địa chỉ IP cụ thể."
         elif ip_parts == [255, 255, 255, 255]:
             return "Broadcast Address: Được sử dụng để gửi dữ liệu tới tất cả các thiết bị trên mạng con và không cấp phát cho thiết bị."
+        elif 1 <= ip_parts[0] <= 126:
+            return "Class A(Public IP): Dải địa chỉ từ 1.0.0.0 đến 126.0.0.0. Thường được sử dụng cho các mạng lớn."
+        elif ip_parts[0] == 127:
+            return "Loopback IP: Địa chỉ mạng nội bộ để kiểm tra thiết bị, dải từ 127.0.0.0 đến 127.255.255.255."
+        elif 128 <= ip_parts[0] <= 191:
+            return "Class B(Public IP): Dải địa chỉ từ 128.0.0.0 đến 191.255.0.0. Thường được sử dụng cho các mạng vừa và nhỏ."
+        elif 192 <= ip_parts[0] <= 223:
+            return "Class C(Public IP): Dải địa chỉ từ 192.0.0.0 đến 223.255.255.0. Thường được sử dụng cho các mạng nhỏ."
+        elif 224 <= ip_parts[0] <= 239:
+            return "Class D: Dải địa chỉ từ 224.0.0.0 đến 239.255.255.255. Được sử dụng cho Multicast."
+        elif 240 <= ip_parts[0] <= 255:
+            return "Class E(Public IP): Dải địa chỉ từ 240.0.0.0 trở đi. Được dành riêng cho nghiên cứu hoặc sử dụng trong tương lai."
         elif 10 == ip_parts[0]:
             return "Private IP (10.0.0.0/8): Địa chỉ IP trong mạng nội bộ, không thể truy cập trực tiếp từ Internet."
         elif ip_parts[0] == 172 and 16 <= ip_parts[1] <= 31:
@@ -47,7 +59,7 @@ class IPv4Address(IPAddress):
         elif ip_parts[0] == 169 and ip_parts[1] == 254:
             return "Link-Local Address: Tự động cấp phát khi không có máy chủ DHCP, chỉ hoạt động trong mạng cục bộ."
         elif 224 <= ip_parts[0] <= 239:
-            return "Multicast: Được sử dụng để gửi dữ liệu đến nhiều thiết bị trong một nhóm trên mạng"
+            return "Multicast: Được sử dụng để gửi dữ liệu đến nhiều thiết bị trong một nhóm trên mạng."
         elif 198 == ip_parts[0] and 18 <= ip_parts[1] <= 19:
             return "Benchmarking IP (198.18.0.0/15): Được sử dụng để kiểm tra hiệu năng mạng."
         elif ip_parts[0] == 192 and ip_parts[1] == 88 and ip_parts[2] == 99:
@@ -60,6 +72,7 @@ class IPv4Address(IPAddress):
             return "Documentation Address (203.0.113.0/24): Được sử dụng trong tài liệu kỹ thuật và ví dụ, không dùng trên mạng thực tế."
         else:
             return "Public IP: Địa chỉ IP công cộng, được cấp phát để truy cập Internet."
+
 
     def get_details(self):
         # ... (rest of IPv4 get_details remains the same)
